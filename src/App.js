@@ -1,58 +1,27 @@
-import { Button, CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import './App.css';
-import ReviewCard from './components/cardDisplayer';
+import Home from './components/home';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const url = 'http://localhost:3000/';
-  function fetchData() {
-    setLoading(true);
-    axios
-      .get(url + 'posts')
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((err) => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  const [currentPost, setCurrentPost] = useState({});
   return (
-    <div className='main'>
-      {loading ? (
-        <CircularProgress></CircularProgress>
-      ) : error ? (
-        <h1>Sorry something went wrong</h1>
-      ) : (
-        <div className='posts'>
-          {posts.map((e) => {
-            return (
-              <ReviewCard
-                post={e}
-                fetchData={fetchData}
-                setPosts={setPosts}
-              ></ReviewCard>
-            );
-          })}
-        </div>
-      )}
-      <Button
-        variant='contained'
-        style={{ backgroundColor: 'white', color: 'black' }}
-      >
-        Add a post
-      </Button>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/'>
+          <Home setCurrentPost={setCurrentPost} />
+        </Route>
+        <Route path='/posts/:id'>
+          <div className='post-page'>
+            <div className='display-post'>
+              <h1>{currentPost.title}</h1>
+              <h4>{currentPost.caption}</h4>
+              <p>{currentPost.details}</p>
+            </div>
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
