@@ -2,6 +2,7 @@ import './App.css';
 import Home from './components/home';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Post from './components/postPage';
 
 function App() {
   const [currentPost, setCurrentPost] = useState({});
@@ -12,13 +13,7 @@ function App() {
           <Home setCurrentPost={setCurrentPost} />
         </Route>
         <Route path='/posts/:id'>
-          <div className='post-page'>
-            <div className='display-post'>
-              <h1>{currentPost.title}</h1>
-              <h4>{currentPost.caption}</h4>
-              <p>{currentPost.details}</p>
-            </div>
-          </div>
+          <Post post={currentPost}></Post>
         </Route>
       </Switch>
     </Router>
