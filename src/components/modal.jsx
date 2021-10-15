@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
+import AddIcon from '@mui/icons-material/Add';
 
 const Swal = require('sweetalert2')
 const url = 'http://localhost:3000/';
@@ -37,14 +38,17 @@ export default function BasicModal({fetchData}) {
           title: 'Done!',
           text: 'Post added successfully',
           icon: 'success',
-          confirmButtonText: 'Cool'
+          confirmButtonText: 'Cool',
+          confirmButtonColor:'#757575',  
         })
       }).catch((err)=>{
         Swal.fire({
           title: 'Error!',
-          text: 'Something went wrong',
+          text: 'Posts cannot have the same data.',
           icon: 'error',
-          confirmButtonText: 'Okey'
+          confirmButtonText: 'Okey',
+          confirmButtonColor:'#757575',
+
         })
       })
       
@@ -53,7 +57,9 @@ export default function BasicModal({fetchData}) {
         title: 'Error!',
         text: 'You have to fill all the fields!',
         icon: 'error',
-        confirmButtonText: 'Okey'
+        confirmButtonText: 'Okey',
+        confirmButtonColor:'#757575',
+      
       })
     }
   }
@@ -62,9 +68,9 @@ export default function BasicModal({fetchData}) {
         <Button
         onClick={handleOpen}
         variant='contained'
-        style={{ backgroundColor: 'white', color: 'black' }}
+        style={{ backgroundColor: 'white', color: 'black', borderRadius:'50%', height:'60px', width:'60px' }}
       >
-        Add a post
+       <AddIcon></AddIcon>
       </Button>
      
       <Modal

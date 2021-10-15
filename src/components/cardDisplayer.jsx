@@ -10,30 +10,48 @@ import Typography from '@mui/material/Typography';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Box } from '@mui/system';
 import axios from 'axios';
-import CustomizedSnackbars from './failSbar';
-import SuccessSnackbars from './successSbar';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const url = 'http://localhost:3000/';
 
 
 export default function ReviewCard({post, fetchData, setPosts, setCurrentPost}) {
-
-  const [open, setOpen] = React.useState(false);
-  const [openS, setOpenS] = React.useState(false);
   function redirict () {
     setCurrentPost(post)
   
   }
     function deletePost(e) {
-        axios.delete(url + 'posts/' + e._id).then((resp)=>{
-          setOpenS(true)
-            fetchData()
-
-        }).catch(err=>{
-         setOpen(true)
-            console.log(err)
-        });
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(url + 'posts/' + e._id).then((resp)=>{
+            Swal.fire(
+              'Deleted!',
+              'Your post has been deleted.',
+              'success'
+            )
+              fetchData()
+  
+          }).catch(err=>{
+            Swal.fire(
+              'Unable to delete!',
+              'Your file has been deleted.',
+              'error'
+            )
+              console.log(err)
+          });
+       
+        }
+      })
+       
        
       }
     
@@ -63,13 +81,8 @@ title={post.title}
        <Box sx = {{width:"30%"}}></Box>
         <IconButton aria-label="share" >
           <DeleteForeverIcon style = {{fontSize:26}} onClick={deletePostClick}/>
-        </IconButton>
-      
-      </CardActions>
-  
-      <SuccessSnackbars open={openS} setOpen={setOpenS}></SuccessSnackbars>
-      <CustomizedSnackbars open={open} setOpen={setOpen} ></CustomizedSnackbars>
-   
+        </IconButton>    
+      </CardActions>  
     </Card>
   );
 }
