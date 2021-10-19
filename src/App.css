@@ -3,6 +3,7 @@
 .main {
   min-height: 100vh;
   width: 100vw;
+  margin-top: 10vh;
   margin-bottom: 15vh;
   display: grid;
   place-items: center;

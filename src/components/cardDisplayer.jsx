@@ -59,7 +59,7 @@ export default function ReviewCard({post, fetchData, setPosts, setCurrentPost}) 
     deletePost(post)
  }
   return (
-    <Card sx={{ maxWidth: 345, height:260 }}>
+    <Card sx={{ maxWidth: 345, minHeight:210 }}>
       <CardHeader
 title={post.title}
       />
@@ -69,7 +69,12 @@ title={post.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-      <Button
+      <IconButton aria-label="share" >
+          <DeleteForeverIcon style = {{fontSize:26}} onClick={deletePostClick}/>
+        </IconButton> 
+       <Box sx = {{width:"30%"}}></Box>
+         
+        <Button
       onClick={redirict}
       variant='contained'
       style={{ backgroundColor: 'antiquewhite', color: 'black' }}
@@ -77,11 +82,7 @@ title={post.title}
                 <Link style = {{textDecoration: 'none', color:'black'}} to={`/posts/${post._id}`}>
                 View more
                 </Link>
-    </Button>
-       <Box sx = {{width:"30%"}}></Box>
-        <IconButton aria-label="share" >
-          <DeleteForeverIcon style = {{fontSize:26}} onClick={deletePostClick}/>
-        </IconButton>    
+    </Button>  
       </CardActions>  
     </Card>
   );
