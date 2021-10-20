@@ -16,11 +16,8 @@ import Swal from 'sweetalert2';
 const url = 'http://localhost:3000/';
 
 
-export default function ReviewCard({post, fetchData, setPosts, setCurrentPost}) {
-  function redirict () {
-    setCurrentPost(post)
-  
-  }
+export default function ReviewCard({post, fetchData, setPosts}) {
+
     function deletePost(e) {
       Swal.fire({
         title: 'Are you sure?',
@@ -59,13 +56,13 @@ export default function ReviewCard({post, fetchData, setPosts, setCurrentPost}) 
     deletePost(post)
  }
   return (
-    <Card sx={{ maxWidth: 345, minHeight:210 }}>
+    <Card sx={{ maxWidth: 345, minHeight:210 }} className='card'>
       <CardHeader
-title={post.title}
+title={post.name}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {post.caption}
+          Race: {post.race}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -75,7 +72,7 @@ title={post.title}
        <Box sx = {{width:"30%"}}></Box>
          
         <Button
-      onClick={redirict}
+   
       variant='contained'
       style={{ backgroundColor: 'antiquewhite', color: 'black' }}
     >
